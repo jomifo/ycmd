@@ -323,8 +323,13 @@ def _ConvertDetailedCompletionData( completion_data, padding = 0 ):
   display_parts = completion_data[ 'displayParts' ]
   signature = ''.join( [ p[ 'text' ] for p in display_parts ] )
   menu_text = '{0} {1}'.format( name.ljust( padding ), signature )
+  detailed_info = None
+  if completion_data.get('kind') == 'method':
+      detailed_info = utils.ToUtf8IfNeeded( '{0}\n'.format(signature) )
+
   return responses.BuildCompletionData(
     insertion_text = utils.ToUtf8IfNeeded( name ),
     menu_text      = utils.ToUtf8IfNeeded( menu_text ),
-    kind           = utils.ToUtf8IfNeeded( completion_data[ 'kind' ] )
+    kind           = utils.ToUtf8IfNeeded( completion_data[ 'kind' ] ),
+    detailed_info  = detailed_info
   )

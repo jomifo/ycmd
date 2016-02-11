@@ -324,7 +324,7 @@ def _ConvertDetailedCompletionData( completion_data, padding = 0 ):
   signature = ''.join( [ p[ 'text' ] for p in display_parts ] )
   menu_text = '{0} {1}'.format( name.ljust( padding ), signature )
   detailed_info = None
-  if completion_data.get('kind') == 'method':
+  if completion_data.get('kind') in ('method','constructor'):
       detailed_info = utils.ToUtf8IfNeeded( '{0}\n'.format(signature) )
 
   return responses.BuildCompletionData(
